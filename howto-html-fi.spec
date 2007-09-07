@@ -7,11 +7,10 @@
 Summary:   %language HOWTO documents (html format) from the Linux Documentation Project
 Name:      howto-%{format1}
 Version:	10.0
-Release:	2mdk
+Release:	%mkrel 3
 Group:		Books/Howtos
 
 Source0:   %name.tar
-Source1:   %name
 
 Url:		http://www.linuxdoc.org/docs.html#howto
 License:	GPL
@@ -19,7 +18,7 @@ BuildRoot:	%{_tmppath}/%{name}-root
 BuildArch:	noarch
 
 BuildRequires: howto-utils
-Requires:    locales-%lang, howto-utils, webclient, mandrake_desk > 1.0.3-7mdk
+Requires:    locales-%lang, xdg-utils
 
 %description
 Linux HOWTOs are detailed documents which describe a specific aspect of 
@@ -35,9 +34,17 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_docdir}/HOWTO/%{format2}
 untar_howtos; makehowtoindex %lang %language > index.html; cp -a * $RPM_BUILD_ROOT%{_docdir}/HOWTO/%{format2}
 
-install -m 755 -d $RPM_BUILD_ROOT%{_menudir}
-install -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_menudir}
-
+install -m 755 -d $RPM_BUILD_ROOT%{_datadir}/applications
+cat > %{buildroot}%_datadir/applications/mandriva-%{name}.desktop << EOF
+[Desktop Entry]
+Name=Howto %language
+Comment=HOWTO documents (html format) from the Linux Documentation Project in %language
+Exec=xdg-open %_datadir/doc/HOWTO/HTML/%lang/index.html
+Icon=documentation_section
+Terminal=false
+Type=Application
+Categories=Documentation;
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -45,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{_docdir}/HOWTO/%{format2}
-%{_menudir}/*
+%{_datadir}/applications/*.desktop
 
 %post
 %{update_menus}
