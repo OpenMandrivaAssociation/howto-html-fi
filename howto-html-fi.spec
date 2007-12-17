@@ -14,7 +14,6 @@ Source0:   %name.tar
 
 Url:		http://www.linuxdoc.org/docs.html#howto
 License:	GPL
-BuildRoot:	%{_tmppath}/%{name}-root
 BuildArch:	noarch
 
 BuildRequires: howto-utils
