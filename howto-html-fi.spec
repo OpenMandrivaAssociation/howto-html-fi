@@ -54,8 +54,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/HOWTO/%{format2}
 %{_datadir}/applications/*.desktop
 
+%if %mdkversion < 200900
 %post
 %{update_menus}
+%endif
 
+%if %mdkversion < 200900
 %postun
 %{clean_menus}
+%endif
