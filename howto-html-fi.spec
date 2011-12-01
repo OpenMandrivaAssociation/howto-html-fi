@@ -30,11 +30,11 @@ documents are located at http://www.linuxdoc.org/docs.html#howto
 %setup -q -n %name
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/HOWTO/%{format2}
-untar_howtos; makehowtoindex %lang %language > index.html; cp -a * $RPM_BUILD_ROOT%{_docdir}/HOWTO/%{format2}
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_docdir}/HOWTO/%{format2}
+untar_howtos; makehowtoindex %lang %language > index.html; cp -a * %{buildroot}%{_docdir}/HOWTO/%{format2}
 
-install -m 755 -d $RPM_BUILD_ROOT%{_datadir}/applications
+install -m 755 -d %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%_datadir/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Howto %language
@@ -47,7 +47,7 @@ Categories=Documentation;
 EOF
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
