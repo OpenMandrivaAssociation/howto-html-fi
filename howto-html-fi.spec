@@ -7,7 +7,7 @@
 Summary:	%{language} HOWTO documents (html format) from the Linux Documentation Project
 Name:		howto-%{format1}
 Version:	10.0
-Release:	12
+Release:	13
 Group:		Books/Howtos
 License:	GPLv2
 Url:		http://www.linuxdoc.org/docs.html#howto
